@@ -11,7 +11,7 @@ export const SearchContainer = styled(FlexContainer)`
 
 export const SearchInputContainer = styled(FlexContainer)`
   position: absolute;
-  right: 8px;
+  right: ${HORIZONTAL_SPACING.DEFAULT};
   padding: 0 8px;
   border-radius: 8px;
   border: 1px solid #ccc;
