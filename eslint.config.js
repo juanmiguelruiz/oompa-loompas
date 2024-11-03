@@ -37,12 +37,28 @@ const commonRules = {
 
   // Imports
   'import/order': [
-    'error',
-    {
-      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-      'newlines-between': 'never',
-      alphabetize: { order: 'asc' }
-    }
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling'],
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: 'components/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: 'styles',
+            group: 'internal',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+      },
   ],
 
   // General

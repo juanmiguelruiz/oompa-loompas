@@ -20,9 +20,14 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+  "paths": {
+      "src": ["src/"],
+      "src/*": ["src/*"],
+      "components": ["src/components/"],
+      "components/*": ["src/components/*"],
+      "test": ["src/test/"],
+      "test/*": ["src/test/*"],
+    },
   },
   "include": ["src", "tests", "*.config.ts", "*.config.js", "vite.config.ts", "jest.setup.js"]
 } 
