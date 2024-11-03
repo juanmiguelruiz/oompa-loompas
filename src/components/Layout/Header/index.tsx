@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { FlexContainer, Text } from 'components';
 import { IMAGES, ROUTES } from 'src/constants';
+import { FlexContainer, Text } from 'components';
 import * as Styled from './styles';
 
 const Header = () => {

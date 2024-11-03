@@ -8,7 +8,9 @@ export default defineConfig({
     alias: {
       src: '/src',
       components: '/src/components',
-      test: '/src/test',
+      constants: '/src/constants',
+      services: '/src/services',
+      types: '/src/types',
     },
   },
 })
