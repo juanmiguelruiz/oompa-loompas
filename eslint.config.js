@@ -52,7 +52,17 @@ const commonRules = {
             position: 'before',
           },
           {
+            pattern: 'hooks/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
             pattern: 'components/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: 'containers/**',
             group: 'internal',
             position: 'before',
           },
