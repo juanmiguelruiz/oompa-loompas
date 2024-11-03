@@ -23,3 +23,12 @@ export const LITERALS = {
     noResultsFound: 'No results found',
   },
 };
+
+export const HORIZONTAL_SPACING = {
+  DEFAULT: '16px',
+  [BREAKPOINTS.MOBILE_L]: '24px',
+  [BREAKPOINTS.TABLET]: '32px',
+  [BREAKPOINTS.DESKTOP_EXTRA_SMALL]: '64px',
+  [BREAKPOINTS.DESKTOP_SMALL]: '80px',
+  [BREAKPOINTS.DESKTOP]: '96px',
+};

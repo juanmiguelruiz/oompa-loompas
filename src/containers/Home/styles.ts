@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FlexContainer, Grid, Text } from 'src/components';
-import { BREAKPOINTS } from 'src/constants';
+import { BREAKPOINTS, HORIZONTAL_SPACING } from 'src/constants';
 
 export const SearchContainer = styled(FlexContainer)`
   justify-content: end;
@@ -17,23 +17,23 @@ export const SearchInputContainer = styled(FlexContainer)`
   border: 1px solid #ccc;
 
   @media (min-width: ${BREAKPOINTS.MOBILE_L}) {
-    right: 24px;
+    right: ${HORIZONTAL_SPACING.MOBILE_L};
   }
 
   @media (min-width: ${BREAKPOINTS.TABLET}) {
-    right: 32px;
+    right: ${HORIZONTAL_SPACING.TABLET};
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP_EXTRA_SMALL}) {
-    right: 64px;
+    right: ${HORIZONTAL_SPACING.DESKTOP_EXTRA_SMALL};
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP_SMALL}) {
-    right: 80px;
+    right: ${HORIZONTAL_SPACING.DESKTOP_SMALL};
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP}) {
-    right: 96px;
+    right: ${HORIZONTAL_SPACING.DESKTOP};
   }
 `;
 

@@ -1,28 +1,28 @@
 import styled from 'styled-components';
-import { BREAKPOINTS } from 'src/constants';
+import { BREAKPOINTS, HORIZONTAL_SPACING } from 'src/constants';
 
 export const Container = styled.div`
-  padding: 4px 16px;
+  padding: 4px ${HORIZONTAL_SPACING.DEFAULT};
   background-color: lightgray;
 
   @media (min-width: ${BREAKPOINTS.MOBILE_L}) {
-    padding: 24px;
+    padding: 4px ${HORIZONTAL_SPACING.MOBILE_L};
   }
 
   @media (min-width: ${BREAKPOINTS.TABLET}) {
-    padding: 4px 32px;
+    padding: 4px ${HORIZONTAL_SPACING.TABLET};
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP_EXTRA_SMALL}) {
-    padding: 4px 64px;
+    padding: 4px ${HORIZONTAL_SPACING.DESKTOP_EXTRA_SMALL};
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP_SMALL}) {
-    padding: 4px 80px;
+    padding: 4px ${HORIZONTAL_SPACING.DESKTOP_SMALL};
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP}) {
-    padding: 4px 96px;
+    padding: 4px ${HORIZONTAL_SPACING.DESKTOP};
   }
 `;
 
