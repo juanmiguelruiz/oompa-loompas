@@ -9,6 +9,7 @@ export const BREAKPOINTS = {
 };
 export const ROUTES = {
   HOME: '/',
+  OOMPA_LOOMPA_DETAIL: '/:oompaLoompaId',
 };
 
 export const IMAGES = {
@@ -21,6 +22,11 @@ export const LITERALS = {
     title: 'Find your Oompa Loompa',
     subtitle: 'There are more than 100k',
     noResultsFound: 'No results found',
+  },
+  OompaLoompaDetail: {
+    extraInfo: 'Extra Info',
+    favoriteSong: 'Favorite Song',
+    notFound: 'OompaLoompa not found',
   },
 };
 

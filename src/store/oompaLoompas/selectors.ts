@@ -13,3 +13,11 @@ export const selectOompaLoompasByPage = (page: number) =>
       loading: oompaLoompas.loading,
     };
   });
+
+export const selectOompaLoompaById = (id: number) =>
+  createSelector([selectOompaLoompas], oompaLoompas => {
+    const accumulatedResults = Object.values(oompaLoompas.data?.resultsByPage).flatMap(
+      results => results
+    );
+    return accumulatedResults.find(oompaLoompa => oompaLoompa.id === id);
+  });

@@ -1,6 +1,6 @@
 import { mockOompaLoompa1, mockOompaLoompa2 } from 'tests/mocks/oompaLoompas';
 import { mockLoadedState } from 'tests/mocks/store';
-import { selectOompaLoompas, selectOompaLoompasByPage } from './selectors';
+import { selectOompaLoompas, selectOompaLoompasByPage, selectOompaLoompaById } from './selectors';
 
 const emptyState = {
   oompaLoompas: {
@@ -47,9 +47,47 @@ describe('Oompa Loompa Selectors', () => {
     });
   });
 
+  describe('selectOompaLoompaById', () => {
+    it('should return specific Oompa Loompa by id', () => {
+      const selector = selectOompaLoompaById(1);
+      const result = selector(mockLoadedState);
+
+      expect(result).toEqual(mockOompaLoompa1);
+    });
+
+    it('should return undefined for non-existent id', () => {
+      const selector = selectOompaLoompaById(999);
+      const result = selector(mockLoadedState);
+
+      expect(result).toBeUndefined();
+    });
+
+    it('should find Oompa Loompa across all pages', () => {
+      const selector = selectOompaLoompaById(2);
+      const result = selector(mockLoadedState);
+
+      expect(result).toEqual(mockOompaLoompa2);
+    });
+
+    it('should handle empty state', () => {
+      const selector = selectOompaLoompaById(1);
+      const result = selector(emptyState);
+
+      expect(result).toBeUndefined();
+    });
+  });
+
   describe('selector memoization', () => {
     it('should memoize selectOompaLoompasByPage results', () => {
       const selector = selectOompaLoompasByPage(1);
+      const result1 = selector(mockLoadedState);
+      const result2 = selector(mockLoadedState);
+
+      expect(result1).toBe(result2);
+    });
+
+    it('should memoize selectOompaLoompaById results', () => {
+      const selector = selectOompaLoompaById(1);
       const result1 = selector(mockLoadedState);
       const result2 = selector(mockLoadedState);
 
