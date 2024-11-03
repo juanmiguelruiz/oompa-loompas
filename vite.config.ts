@@ -10,6 +10,8 @@ export default defineConfig({
       components: '/src/components',
       constants: '/src/constants',
       services: '/src/services',
+      store: '/src/store',
+      tests: '/src/tests',
       types: '/src/types',
     },
   },

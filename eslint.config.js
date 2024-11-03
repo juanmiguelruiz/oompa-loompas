@@ -57,7 +57,17 @@ const commonRules = {
             position: 'before',
           },
           {
+            pattern: 'store/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
             pattern: 'types/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: 'tests/**',
             group: 'internal',
             position: 'before',
           },
