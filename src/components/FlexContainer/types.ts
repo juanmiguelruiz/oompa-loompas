@@ -23,3 +23,14 @@ export interface FlexContainerProps {
   flexGrow?: number;
   className?: string;
 }
+
+export interface FlexContainerStyledProps {
+  $align?: FlexAlignItems;
+  $justify?: FlexJustifyContent;
+  $direction?: FlexDirection;
+  $wrap?: FlexWrap;
+  $gap?: number;
+  $fullWidth?: boolean;
+  $fullHeight?: boolean;
+  $flexGrow?: number;
+}

@@ -23,3 +23,18 @@ export interface GridProps {
   fullWidth?: boolean;
   fullHeight?: boolean;
 }
+
+export interface GridStyledProps {
+  $gap?: number;
+  $columnGap?: number;
+  $rowGap?: number;
+  $columns?: string;
+  $rows?: string;
+  $alignContent?: GridAlignItems;
+  $justifyContent?: GridJustifyContent;
+  $alignItems?: GridAlignItems;
+  $justifyItems?: GridJustifyContent;
+  $gridArea?: string;
+  $fullWidth?: boolean;
+  $fullHeight?: boolean;
+}

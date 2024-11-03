@@ -22,3 +22,13 @@ export interface TextProps {
   tag?: keyof React.JSX.IntrinsicElements;
   className?: string;
 }
+
+export interface TextStyledProps {
+  $size?: number;
+  $color?: string;
+  $weight?: number;
+  $lineHeight?: string;
+  $align?: TextAlign;
+  $fontStyle?: string;
+  $tag?: keyof React.JSX.IntrinsicElements;
+}
