@@ -4,37 +4,19 @@ import { BREAKPOINTS, HORIZONTAL_SPACING } from 'src/constants';
 
 export const SearchContainer = styled(FlexContainer)`
   justify-content: end;
+  width: 160px;
+  margin-left: auto;
+
   @media (max-width: ${BREAKPOINTS.MOBILE_L}) {
     justify-content: center;
+    margin: 0 auto;
   }
 `;
 
 export const SearchInputContainer = styled(FlexContainer)`
-  position: absolute;
-  right: ${HORIZONTAL_SPACING.DEFAULT};
   padding: 0 8px;
   border-radius: 8px;
   border: 1px solid #ccc;
-
-  @media (min-width: ${BREAKPOINTS.MOBILE_L}) {
-    right: ${HORIZONTAL_SPACING.MOBILE_L};
-  }
-
-  @media (min-width: ${BREAKPOINTS.TABLET}) {
-    right: ${HORIZONTAL_SPACING.TABLET};
-  }
-
-  @media (min-width: ${BREAKPOINTS.DESKTOP_EXTRA_SMALL}) {
-    right: ${HORIZONTAL_SPACING.DESKTOP_EXTRA_SMALL};
-  }
-
-  @media (min-width: ${BREAKPOINTS.DESKTOP_SMALL}) {
-    right: ${HORIZONTAL_SPACING.DESKTOP_SMALL};
-  }
-
-  @media (min-width: ${BREAKPOINTS.DESKTOP}) {
-    right: ${HORIZONTAL_SPACING.DESKTOP};
-  }
 `;
 
 export const Separator = styled.div`
@@ -101,12 +83,12 @@ export const OompaLoompasContainer = styled(Grid)`
 
   @media (max-width: ${BREAKPOINTS.TABLET}) {
     grid-template-columns: repeat(2, 1fr);
-    padding: 24px 0;
+    padding: ${HORIZONTAL_SPACING.TABLET} 0;
   }
 
   @media (max-width: ${BREAKPOINTS.MOBILE_L}) {
     grid-template-columns: repeat(1, 1fr);
-    padding: 16px 0;
+    padding: ${HORIZONTAL_SPACING.DEFAULT} 0;
   }
 `;
 
