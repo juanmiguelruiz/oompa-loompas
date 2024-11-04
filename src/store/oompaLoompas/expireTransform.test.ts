@@ -82,7 +82,6 @@ describe('Redux-persist expiration', () => {
 
   it('should reset state after expiration time', async () => {
     await (store.dispatch as AppDispatch)(fetchOompaLoompas(1));
-
     await persistor.flush();
 
     jest.advanceTimersByTime(EXPIRATION_TIME + 1);

@@ -18,6 +18,9 @@ export const IMAGES = {
 };
 
 export const LITERALS = {
+  Header: {
+    title: "Oompa Loompa's Crew",
+  },
   Home: {
     title: 'Find your Oompa Loompa',
     subtitle: 'There are more than 100k',

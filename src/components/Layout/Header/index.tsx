@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { IMAGES, ROUTES } from 'src/constants';
+import { IMAGES, LITERALS, ROUTES } from 'src/constants';
 import { FlexContainer, Text } from 'components';
 import * as Styled from './styles';
 
@@ -16,7 +16,7 @@ const Header = () => {
         <FlexContainer align="center" gap={16}>
           <Styled.Logo src={IMAGES.LOGO} alt="Oompa Loompa's Crew" />
           <Text tag="h2" size={18} weight={600}>
-            Oompa Loompa's Crew
+            {LITERALS.Header.title}
           </Text>
         </FlexContainer>
       </Styled.HeaderButton>

@@ -59,7 +59,6 @@ describe('oompaLoompas slice', () => {
   });
 
   it('should preserve previous results when loading a new page', () => {
-    // Primero cargamos la página 1
     store.dispatch({
       type: fetchOompaLoompas.fulfilled.type,
       payload: {
@@ -69,7 +68,6 @@ describe('oompaLoompas slice', () => {
       },
     });
 
-    // Luego cargamos la página 2
     store.dispatch({
       type: fetchOompaLoompas.fulfilled.type,
       payload: mockOompaLoompasResponse,
