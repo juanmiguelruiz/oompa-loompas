@@ -1,5 +1,7 @@
 # Napptilus Tech Labs Front-End Developer Test
 
+Web deployed: [Oompa Loompa's Crew](https://oompa-loompas-brown.vercel.app/)
+
 ## Getting started 🏄🏼‍♂️
 
 1. Node v20.18.0 and npm v10.8.2
