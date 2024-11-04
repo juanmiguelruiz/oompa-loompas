@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
-import { selectOompaLoompasByPage } from 'store/oompaLoompas/selectors';
+import { selectOompaLoompas, selectOompaLoompasByPage } from 'store/oompaLoompas/selectors';
 import { fetchOompaLoompas } from 'store/oompaLoompas/slice';
 import { Grid, Spinner, Text } from 'components';
 import { IMAGES, LITERALS } from 'src/constants';
@@ -13,10 +13,13 @@ const Home = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const [page, setPage] = useState(1);
   const { data, loading } = useSelector(selectOompaLoompasByPage(page));
+  const pagesLength = useSelector(selectOompaLoompas)?.data?.total;
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleLoadMore = (): void => {
-    setPage(prevPage => prevPage + 1);
+    if (pagesLength > page) {
+      setPage(prevPage => prevPage + 1);
+    }
   };
 
   const observerTarget = useInfiniteScroll(handleLoadMore, { loading });

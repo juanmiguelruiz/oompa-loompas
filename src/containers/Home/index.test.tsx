@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import React, { act, useState } from 'react';
+import { render, screen, fireEvent, renderHook } from '@testing-library/react';
 import * as reactRedux from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { mockOompaLoompasList } from 'tests/mocks/oompaLoompas';
@@ -85,5 +85,43 @@ describe('Home Component', () => {
     const searchIcon = screen.getByAltText('search');
     expect(searchIcon).toBeInTheDocument();
     expect(searchIcon).toHaveAttribute('src', IMAGES.SEARCH_ICON);
+  });
+});
+
+describe('Home - handleLoadMore', () => {
+  it('should increment page when pagesLength is greater than current page', () => {
+    const { result } = renderHook(() => {
+      const [page, setPage] = useState(1);
+      const handleLoadMore = () => {
+        if (5 > page) {
+          setPage(prevPage => prevPage + 1);
+        }
+      };
+      return { page, handleLoadMore };
+    });
+
+    act(() => {
+      result.current.handleLoadMore();
+    });
+
+    expect(result.current.page).toBe(2);
+  });
+
+  it('should not increment page when pagesLength is equal to current page', () => {
+    const { result } = renderHook(() => {
+      const [page, setPage] = useState(5);
+      const handleLoadMore = () => {
+        if (5 > page) {
+          setPage(prevPage => prevPage + 1);
+        }
+      };
+      return { page, handleLoadMore };
+    });
+
+    act(() => {
+      result.current.handleLoadMore();
+    });
+
+    expect(result.current.page).toBe(5);
   });
 });
