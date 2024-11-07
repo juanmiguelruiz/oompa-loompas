@@ -2,6 +2,17 @@ import styled from 'styled-components';
 import { FlexContainer, Grid, Text } from 'src/components';
 import { BREAKPOINTS, HORIZONTAL_SPACING } from 'src/constants';
 
+export const Container = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+`;
+
+export const TitleContainer = styled(Grid)`
+  margin: 32px 0;
+`;
+
 export const SearchContainer = styled(FlexContainer)`
   justify-content: end;
   width: 160px;

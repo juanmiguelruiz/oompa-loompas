@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import { BREAKPOINTS, HORIZONTAL_SPACING } from 'src/constants';
 
+export const Main = styled.main`
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+`;
+
 export const Content = styled.div`
   padding: ${HORIZONTAL_SPACING.DEFAULT};
   max-width: 1200px;
+  margin: 0 auto;
 
   @media (min-width: ${BREAKPOINTS.MOBILE_L}) {
     padding: ${HORIZONTAL_SPACING.MOBILE_L};

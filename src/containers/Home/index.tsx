@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
 import { selectOompaLoompas, selectOompaLoompasByPage } from 'store/oompaLoompas/selectors';
 import { fetchOompaLoompas } from 'store/oompaLoompas/slice';
-import { Grid, Spinner, Text } from 'components';
+import { Spinner, Text } from 'components';
 import { IMAGES, LITERALS } from 'src/constants';
 import { AppDispatch } from 'src/store';
 import Card from './Card';
@@ -45,7 +45,7 @@ const Home = (): JSX.Element => {
   }
 
   return (
-    <Grid justifyContent="center" fullWidth gap={32}>
+    <Styled.Container>
       <Styled.SearchContainer fullWidth>
         <Styled.SearchInputContainer align="center" gap={8}>
           <Styled.SearchInput
@@ -58,14 +58,14 @@ const Home = (): JSX.Element => {
           <Styled.SearchIcon src={IMAGES.SEARCH_ICON} alt="search" />
         </Styled.SearchInputContainer>
       </Styled.SearchContainer>
-      <Grid justifyContent="center" alignItems="center" gap={8}>
+      <Styled.TitleContainer justifyContent="center" alignItems="center" gap={8}>
         <Styled.Title weight={400} align="center" tag="span">
           {LITERALS.Home.title}
         </Styled.Title>
         <Styled.Subtitle weight={400} color="gray" align="center" tag="span">
           {LITERALS.Home.subtitle}
         </Styled.Subtitle>
-      </Grid>
+      </Styled.TitleContainer>
       <Styled.OompaLoompasContainer
         columns="repeat(3, 1fr)"
         columnGap={56}
@@ -82,7 +82,7 @@ const Home = (): JSX.Element => {
         </Text>
       )}
       {!searchTerm && <Styled.ObserverTarget ref={observerTarget} />}
-    </Grid>
+    </Styled.Container>
   );
 };
 
