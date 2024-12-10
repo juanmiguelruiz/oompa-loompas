@@ -38,7 +38,7 @@ export const mockOompaLoompa2: OompaLoompa = {
   },
 };
 
-export const mockOompaLoompasResponse = {
+export const mockOompaLoompasListResponse = {
   current: 2,
   total: 2,
   results: [mockOompaLoompa1, mockOompaLoompa2],

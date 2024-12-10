@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { selectOompaLoompaById } from 'store/oompaLoompas/selectors';
+import { selectOompaLoompaById } from 'src/store/oompaLoompasList/selectors';
 import { FlexContainer, Grid, Text } from 'components';
 import { LITERALS } from 'src/constants';
 import { Gender } from 'types';

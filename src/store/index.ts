@@ -10,20 +10,20 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import oompaLoompasReducer from './oompaLoompas/slice';
-import { Slices } from './oompaLoompas/types';
-import { oompaLoompaExpireTransform } from './oompaLoompas/expireTransform';
+import oompaLoompasListReducer from './oompaLoompasList/slice';
+import { Slices } from './oompaLoompasList/types';
+import { oompaLoompaExpireTransform } from './oompaLoompasList/expireTransform';
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: [Slices.OOMPA_LOOMPAS],
+  whitelist: [Slices.OOMPA_LOOMPAS_LIST],
   transforms: [oompaLoompaExpireTransform],
 };
 
 const rootReducer = combineReducers({
-  oompaLoompas: oompaLoompasReducer,
+  oompaLoompasList: oompaLoompasListReducer,
 });
 
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(persistConfig, rootReducer);

@@ -3,7 +3,7 @@ import { mockLoadedState } from 'tests/mocks/store';
 import { selectOompaLoompas, selectOompaLoompasByPage, selectOompaLoompaById } from './selectors';
 
 const emptyState = {
-  oompaLoompas: {
+  oompaLoompasList: {
     data: { total: 0, current: 0, resultsByPage: {} },
     loading: false,
     error: false,
@@ -15,7 +15,7 @@ describe('Oompa Loompa Selectors', () => {
   describe('selectOompaLoompas', () => {
     it('should return the oompaLoompas state', () => {
       const result = selectOompaLoompas(mockLoadedState);
-      expect(result).toBe(mockLoadedState.oompaLoompas);
+      expect(result).toBe(mockLoadedState.oompaLoompasList);
     });
   });
 
@@ -100,8 +100,8 @@ describe('Oompa Loompa Selectors', () => {
 
       const newState = {
         ...mockLoadedState,
-        oompaLoompas: {
-          ...mockLoadedState.oompaLoompas,
+        oompaLoompasList: {
+          ...mockLoadedState.oompaLoompasList,
           loading: true,
         },
       };

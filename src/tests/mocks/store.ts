@@ -2,7 +2,7 @@ import { RootState } from 'src/store';
 import { mockOompaLoompa1, mockOompaLoompa2 } from './oompaLoompas';
 
 export const mockInitialState = {
-  oompaLoompas: {
+  oompaLoompasList: {
     data: {
       total: 0,
       current: 0,
@@ -14,7 +14,7 @@ export const mockInitialState = {
 };
 
 export const mockLoadedState: RootState = {
-  oompaLoompas: {
+  oompaLoompasList: {
     data: {
       total: 2,
       current: 2,

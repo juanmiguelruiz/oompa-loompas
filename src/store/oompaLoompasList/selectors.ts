@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { OompaLoompa } from 'src/types';
 import { RootState } from 'store';
 
-export const selectOompaLoompas = (state: RootState) => state.oompaLoompas;
+export const selectOompaLoompas = (state: RootState) => state.oompaLoompasList;
 
 export const selectOompaLoompasByPage = (page: number) =>
   createSelector([selectOompaLoompas], oompaLoompas => {

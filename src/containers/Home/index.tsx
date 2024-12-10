@@ -1,8 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
-import { selectOompaLoompas, selectOompaLoompasByPage } from 'store/oompaLoompas/selectors';
-import { fetchOompaLoompas } from 'store/oompaLoompas/slice';
+import { selectOompaLoompas, selectOompaLoompasByPage } from 'src/store/oompaLoompasList/selectors';
+import { fetchOompaLoompas } from 'src/store/oompaLoompasList/slice';
 import { Spinner, Text } from 'components';
 import { IMAGES, LITERALS } from 'src/constants';
 import { AppDispatch } from 'src/store';

@@ -1,13 +1,13 @@
 import { createTransform } from 'redux-persist';
-import { OompaLoompaState, Slices } from './types';
+import { OompaLoompasListState, Slices } from './types';
 import { initialState } from './slice';
 
 // 24 hours in milliseconds
 export const EXPIRATION_TIME = 24 * 60 * 60 * 1000;
 
-const createExpireTransform = (expireDuration: number, initialState: OompaLoompaState) =>
+const createExpireTransform = (expireDuration: number, initialState: OompaLoompasListState) =>
   createTransform(
-    (inboundState: OompaLoompaState) => ({
+    (inboundState: OompaLoompasListState) => ({
       ...inboundState,
       timestamp: Date.now(),
     }),
@@ -18,6 +18,6 @@ const createExpireTransform = (expireDuration: number, initialState: OompaLoompa
       }
       return restState;
     },
-    { whitelist: [Slices.OOMPA_LOOMPAS] }
+    { whitelist: [Slices.OOMPA_LOOMPAS_LIST] }
   );
 export const oompaLoompaExpireTransform = createExpireTransform(EXPIRATION_TIME, initialState);

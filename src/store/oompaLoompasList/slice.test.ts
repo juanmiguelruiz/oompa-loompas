@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { mockOompaLoompa1, mockOompaLoompasResponse } from 'tests/mocks/oompaLoompas';
+import { mockOompaLoompa1, mockOompaLoompasListResponse } from 'tests/mocks/oompaLoompas';
 import reducer, { fetchOompaLoompas, initialState } from './slice';
 
 describe('oompaLoompas slice', () => {
@@ -32,15 +32,15 @@ describe('oompaLoompas slice', () => {
   it('should handle fetchOompaLoompas.fulfilled', () => {
     store.dispatch({
       type: fetchOompaLoompas.fulfilled.type,
-      payload: mockOompaLoompasResponse,
+      payload: mockOompaLoompasListResponse,
     });
 
     expect(store.getState().oompaLoompas).toEqual({
       data: {
-        current: mockOompaLoompasResponse.current,
-        total: mockOompaLoompasResponse.total,
+        current: mockOompaLoompasListResponse.current,
+        total: mockOompaLoompasListResponse.total,
         resultsByPage: {
-          [mockOompaLoompasResponse.current]: mockOompaLoompasResponse.results,
+          [mockOompaLoompasListResponse.current]: mockOompaLoompasListResponse.results,
         },
       },
       loading: false,
@@ -70,7 +70,7 @@ describe('oompaLoompas slice', () => {
 
     store.dispatch({
       type: fetchOompaLoompas.fulfilled.type,
-      payload: mockOompaLoompasResponse,
+      payload: mockOompaLoompasListResponse,
     });
 
     expect(store.getState().oompaLoompas.data.resultsByPage).toHaveProperty('1');

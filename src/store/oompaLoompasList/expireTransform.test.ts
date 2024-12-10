@@ -3,15 +3,14 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { AppDispatch, RootState } from '../index';
-import oompaLoompasReducer, { fetchOompaLoompas, initialState } from './slice';
+import oompaLoompaListSlice, { fetchOompaLoompas, initialState } from './slice';
 import { oompaLoompaExpireTransform, EXPIRATION_TIME } from './expireTransform';
-import { OompaLoompaState, Slices } from './types';
+import { OompaLoompasListState, Slices } from './types';
 
 jest.useFakeTimers();
 
 jest.mock('redux-persist/lib/storage', () => {
   let store: Record<string, string> = {};
-
   return {
     getItem: (key: string) => Promise.resolve(store[key] || null),
     setItem: (key: string, value: string) => {
@@ -31,7 +30,7 @@ jest.mock('redux-persist/lib/storage', () => {
 
 jest.mock('services/oompaLompas', () => ({
   OompaLoompasService: {
-    getOompaLoompas: jest.fn().mockResolvedValue({
+    getOompaLoompasList: jest.fn().mockResolvedValue({
       current: 1,
       total: 10,
       results: [{ id: 1, name: 'Oompa Loompa' }],
@@ -42,22 +41,22 @@ jest.mock('services/oompaLompas', () => ({
 describe('Redux-persist expiration', () => {
   let store: ReturnType<typeof configureStore>;
   let persistor: ReturnType<typeof persistStore>;
-  let persistedReducer: Reducer<OompaLoompaState & PersistPartial>;
+  let persistedReducer: Reducer<OompaLoompasListState & PersistPartial>;
 
   beforeEach(() => {
     const persistConfig = {
       key: 'root',
       version: 1,
       storage,
-      whitelist: [Slices.OOMPA_LOOMPAS],
+      whitelist: [Slices.OOMPA_LOOMPAS_LIST],
       transforms: [oompaLoompaExpireTransform],
     };
 
-    persistedReducer = persistReducer(persistConfig, oompaLoompasReducer);
+    persistedReducer = persistReducer(persistConfig, oompaLoompaListSlice);
 
     store = configureStore({
       reducer: {
-        oompaLoompas: persistedReducer,
+        oompaLoompasList: persistedReducer,
       },
       middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
@@ -75,9 +74,9 @@ describe('Redux-persist expiration', () => {
   it('should retain state within the expiration time', async () => {
     await (store.dispatch as AppDispatch)(fetchOompaLoompas(1));
 
-    const state = store.getState() as RootState & { oompaLoompas: PersistPartial };
-    expect(state.oompaLoompas.data.current).toBe(1);
-    expect(state.oompaLoompas.data.resultsByPage[1]).toEqual([{ id: 1, name: 'Oompa Loompa' }]);
+    const state = store.getState() as RootState & { oompaLoompasList: PersistPartial };
+    expect(state.oompaLoompasList.data.current).toBe(1);
+    expect(state.oompaLoompasList.data.resultsByPage[1]).toEqual([{ id: 1, name: 'Oompa Loompa' }]);
   });
 
   it('should reset state after expiration time', async () => {
@@ -91,7 +90,7 @@ describe('Redux-persist expiration', () => {
 
     const newStore = configureStore({
       reducer: {
-        oompaLoompas: persistedReducer,
+        oompaLoompasList: persistedReducer,
       },
       middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
@@ -103,8 +102,8 @@ describe('Redux-persist expiration', () => {
     await new Promise(resolve => newPersistor.subscribe(() => resolve(undefined)));
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _persist: _, ...state } = newStore.getState().oompaLoompas as OompaLoompaState &
-      PersistPartial;
+    const { _persist: _, ...state } = newStore.getState()
+      .oompaLoompasList as OompaLoompasListState & PersistPartial;
     expect(state).toEqual(initialState);
   });
 });

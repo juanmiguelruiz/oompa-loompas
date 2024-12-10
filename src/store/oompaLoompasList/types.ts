@@ -1,6 +1,6 @@
 import { OompaLoompa } from 'types';
 
-export interface OompaLoompaState {
+export interface OompaLoompasListState {
   data: {
     resultsByPage: Record<number, OompaLoompa[]>;
     current: number;
@@ -11,9 +11,9 @@ export interface OompaLoompaState {
 }
 
 export enum ActionTypes {
-  FETCH_OOMPA_LOOMPAS = 'oompaLoompas/FETCH_OOMPA_LOOMPAS',
+  FETCH_OOMPA_LOOMPAS_LIST = 'oompaLoompasList/FETCH_OOMPA_LOOMPAS_LIST',
 }
 
 export enum Slices {
-  OOMPA_LOOMPAS = 'oompaLoompas',
+  OOMPA_LOOMPAS_LIST = 'oompaLoompasList',
 }

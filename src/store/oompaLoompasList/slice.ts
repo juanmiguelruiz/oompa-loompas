@@ -2,32 +2,35 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { OompaLoompasService } from 'services/oompaLompas';
 import { OompaLoompasResponse } from 'types';
 import { RootState } from '../index';
-import { ActionTypes, OompaLoompaState, Slices } from './types';
+import { ActionTypes, OompaLoompasListState, Slices } from './types';
 
 export const fetchOompaLoompas = createAsyncThunk<
   OompaLoompasResponse,
   number,
   { state: RootState }
->(ActionTypes.FETCH_OOMPA_LOOMPAS, async (page: number = 1, { getState }) => {
+>(ActionTypes.FETCH_OOMPA_LOOMPAS_LIST, async (page: number = 1, { getState }) => {
   const state = getState();
-  if (state.oompaLoompas.data.resultsByPage[page] && page <= state.oompaLoompas.data.current) {
+  if (
+    state.oompaLoompasList.data.resultsByPage[page] &&
+    page <= state.oompaLoompasList.data.current
+  ) {
     return {
-      current: state.oompaLoompas.data.current,
-      total: state.oompaLoompas.data.total,
-      results: state.oompaLoompas.data.resultsByPage[page],
+      current: state.oompaLoompasList.data.current,
+      total: state.oompaLoompasList.data.total,
+      results: state.oompaLoompasList.data.resultsByPage[page],
     };
   }
-  return await OompaLoompasService.getOompaLoompas(page);
+  return await OompaLoompasService.getOompaLoompasList(page);
 });
 
-export const initialState: OompaLoompaState = {
+export const initialState: OompaLoompasListState = {
   data: { total: 0, current: 0, resultsByPage: {} },
   loading: false,
   error: false,
 };
 
-const oompaLoompaSlice = createSlice({
-  name: Slices.OOMPA_LOOMPAS,
+const oompaLoompaListSlice = createSlice({
+  name: Slices.OOMPA_LOOMPAS_LIST,
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -56,4 +59,4 @@ const oompaLoompaSlice = createSlice({
   },
 });
 
-export default oompaLoompaSlice.reducer;
+export default oompaLoompaListSlice.reducer;
