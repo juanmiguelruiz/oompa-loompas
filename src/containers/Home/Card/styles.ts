@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
-import { Grid } from 'components';
+import { Grid, Text } from 'components';
+import { BREAKPOINTS } from 'src/constants';
 
 const fadeOpacity = keyframes`
   from {
@@ -27,9 +28,22 @@ export const ImageContainer = styled.div`
 export const Button = styled.button`
   all: unset;
   cursor: pointer;
+  text-align: start;
+
+  @media (max-width: ${BREAKPOINTS.TABLET}) {
+    text-align: center;
+  }
 
   :hover {
     text-decoration: underline;
     color: darkcyan;
+  }
+`;
+
+export const CenteredText = styled(Text)`
+  text-align: start;
+
+  @media (max-width: ${BREAKPOINTS.TABLET}) {
+    text-align: center;
   }
 `;

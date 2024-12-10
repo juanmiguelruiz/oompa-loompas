@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Grid, Text } from 'components';
+import { Grid } from 'components';
 import { Gender, OompaLoompa } from 'types';
 import * as Styled from './styles';
 
@@ -12,16 +12,16 @@ const OompaLoompaCard = ({ oompaLoompa }: { oompaLoompa: OompaLoompa }) => {
       </Styled.ImageContainer>
       <Grid gap={4}>
         <Styled.Button onClick={() => navigate(`/${oompaLoompa.id}`)}>
-          <Text size={18} weight={500} tag="span">
+          <Styled.CenteredText size={18} weight={500} tag="span">
             {oompaLoompa.first_name} {oompaLoompa.last_name}
-          </Text>
+          </Styled.CenteredText>
         </Styled.Button>
-        <Text size={14} weight={300} color="gray" tag="span">
+        <Styled.CenteredText size={14} weight={300} color="gray" tag="span">
           {Gender[oompaLoompa.gender]}
-        </Text>
-        <Text size={14} weight={300} color="gray" tag="span" fontStyle="italic">
+        </Styled.CenteredText>
+        <Styled.CenteredText size={14} weight={300} color="gray" tag="span" fontStyle="italic">
           {oompaLoompa.profession}
-        </Text>
+        </Styled.CenteredText>
       </Grid>
     </Styled.Container>
   );

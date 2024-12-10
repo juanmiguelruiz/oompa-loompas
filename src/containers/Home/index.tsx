@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
 import { selectOompaLoompas, selectOompaLoompasByPage } from 'store/oompaLoompas/selectors';
@@ -24,17 +24,13 @@ const Home = (): JSX.Element => {
 
   const observerTarget = useInfiniteScroll(handleLoadMore, { loading });
 
-  const filteredOompaLoompas = data?.filter(oompaLoompa => {
-    const firstName = oompaLoompa.first_name.toLowerCase().trim();
-    const lastName = oompaLoompa.last_name.toLowerCase().trim();
+  const filteredOompaLoompas = useMemo(() => {
     const searchTermLower = searchTerm.toLowerCase().trim().replace(/\s+/g, ' ');
-
-    return (
-      firstName.includes(searchTermLower) ||
-      lastName.includes(searchTermLower) ||
-      `${firstName} ${lastName}`.includes(searchTermLower)
-    );
-  });
+    return data?.filter(oompaLoompa => {
+      const fullName = `${oompaLoompa.first_name} ${oompaLoompa.last_name}`.toLowerCase().trim();
+      return fullName.includes(searchTermLower);
+    });
+  }, [data, searchTerm]);
 
   useEffect(() => {
     dispatch(fetchOompaLoompas(page));
