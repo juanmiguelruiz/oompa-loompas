@@ -26,5 +26,10 @@ export const mockLoadedState: RootState = {
     loading: false,
     error: false,
   },
+  oompaLoompasDetail: {
+    data: {},
+    loading: false,
+    error: false,
+  },
   _persist: { version: -1, rehydrated: true },
 } as RootState;
