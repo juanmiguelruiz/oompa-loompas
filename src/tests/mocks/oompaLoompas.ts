@@ -11,6 +11,9 @@ export const mockOompaLoompa1: OompaLoompa = {
   age: 25,
   country: 'Wonderland',
   height: 150,
+  quota: '100',
+  random_string: 'test1',
+  description: 'This is a test description',
   favorite: {
     color: 'blue',
     food: 'chocolate',
@@ -30,6 +33,9 @@ export const mockOompaLoompa2: OompaLoompa = {
   age: 28,
   country: 'Wonderland',
   height: 155,
+  quota: '100',
+  random_string: 'test2',
+  description: 'This is a test description',
   favorite: {
     color: 'red',
     food: 'candy',

@@ -1,8 +1,10 @@
-import { ReactElement } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import * as reactRedux from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import * as reactRedux from 'react-redux';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 import { mockOompaLoompa1 } from 'tests/mocks/oompaLoompas';
+import { selectOompaLoompasDetail } from 'src/store/oompaLoompasDetail/selectors';
 import OompaLoompaDetail from './index';
 
 jest.mock('react-router-dom', () => ({
@@ -15,14 +17,24 @@ jest.mock('react-router-dom', () => ({
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
+  useDispatch: jest.fn(),
 }));
 
-const renderWithRouter = (component: ReactElement) => {
+jest.mock('dompurify', () => ({
+  sanitize: jest.fn(content => content),
+}));
+
+jest.mock('html-react-parser', () => jest.fn(content => content));
+
+const mockDispatch = jest.fn();
+
+const renderWithRouter = (component: React.ReactElement) => {
   return render(<BrowserRouter>{component}</BrowserRouter>);
 };
 
 describe('OompaLoompaDetail Component', () => {
   beforeEach(() => {
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
     jest.spyOn(reactRedux, 'useSelector').mockReturnValue(mockOompaLoompa1);
   });
 
@@ -30,32 +42,93 @@ describe('OompaLoompaDetail Component', () => {
     jest.clearAllMocks();
   });
 
-  it('renders extra info section', () => {
+  it('renders OompaLoompa details correctly', () => {
     renderWithRouter(<OompaLoompaDetail />);
 
-    expect(screen.getByText('Extra Info')).toBeInTheDocument();
-    expect(screen.getByText('john@wonka.com')).toBeInTheDocument();
-    expect(screen.getByText('25')).toBeInTheDocument();
-    expect(screen.getByText('150 cm')).toBeInTheDocument();
+    expect(
+      screen.getByText(`${mockOompaLoompa1.first_name} ${mockOompaLoompa1.last_name}`)
+    ).toBeInTheDocument();
+    expect(screen.getByText(mockOompaLoompa1.profession)).toBeInTheDocument();
   });
 
-  it('handles show more/less song functionality', () => {
+  it('sanitizes and parses HTML description correctly', () => {
     renderWithRouter(<OompaLoompaDetail />);
 
-    const showMoreButton = screen.getByText('Show More');
-    expect(showMoreButton).toBeInTheDocument();
-
-    fireEvent.click(showMoreButton);
-    expect(screen.getByText('Show Less')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText('Show Less'));
-    expect(screen.getByText('Show More')).toBeInTheDocument();
+    expect(DOMPurify.sanitize).toHaveBeenCalledWith(mockOompaLoompa1.description);
+    expect(parse).toHaveBeenCalled();
   });
 
-  it('renders not found message when no Oompa Loompa is found', () => {
-    jest.spyOn(reactRedux, 'useSelector').mockReturnValue(null);
+  it('handles show more/less functionality for song', () => {
+    renderWithRouter(<OompaLoompaDetail />);
+
+    const showMoreButtons = screen.getAllByRole('button', { name: 'Show More' });
+    fireEvent.click(showMoreButtons[0]);
+
+    const showLessButtons = screen.getAllByRole('button', { name: 'Show Less' });
+    expect(showLessButtons[0]).toBeInTheDocument();
+
+    fireEvent.click(showLessButtons[0]);
+    expect(screen.getAllByRole('button', { name: 'Show More' })[0]).toBeInTheDocument();
+  });
+
+  it('handles show more/less functionality for random string', () => {
+    renderWithRouter(<OompaLoompaDetail />);
+
+    const showMoreButtons = screen.getAllByRole('button', { name: 'Show More' });
+    fireEvent.click(showMoreButtons[1]);
+
+    const showLessButtons = screen.getAllByRole('button', { name: 'Show Less' });
+    expect(showLessButtons[0]).toBeInTheDocument();
+  });
+
+  it('handles show more/less functionality for quota', () => {
+    renderWithRouter(<OompaLoompaDetail />);
+
+    const showMoreButtons = screen.getAllByRole('button', { name: 'Show More' });
+    fireEvent.click(showMoreButtons[2]);
+
+    const showLessButtons = screen.getAllByRole('button', { name: 'Show Less' });
+    expect(showLessButtons[0]).toBeInTheDocument();
+  });
+
+  it('renders not found message when no OompaLoompa is found', () => {
+    jest.spyOn(reactRedux, 'useSelector').mockImplementation(selector => {
+      if (selector === selectOompaLoompasDetail) {
+        return { loading: false };
+      }
+      return null;
+    });
+
     renderWithRouter(<OompaLoompaDetail />);
 
     expect(screen.getByText('OompaLoompa not found')).toBeInTheDocument();
+  });
+
+  it('dispatches fetchOompaLoompaById on mount', () => {
+    renderWithRouter(<OompaLoompaDetail />);
+
+    expect(mockDispatch).toHaveBeenCalledWith(expect.any(Function));
+  });
+
+  it('renders extra info section correctly', () => {
+    renderWithRouter(<OompaLoompaDetail />);
+
+    expect(screen.getByText('Extra Info')).toBeInTheDocument();
+    expect(screen.getByText(mockOompaLoompa1.email)).toBeInTheDocument();
+    expect(screen.getByText(`${mockOompaLoompa1.age}`)).toBeInTheDocument();
+    expect(screen.getByText(`${mockOompaLoompa1.height} cm`)).toBeInTheDocument();
+  });
+
+  it('renders spinner when loading', () => {
+    jest.spyOn(reactRedux, 'useSelector').mockImplementation(selector => {
+      if (selector === selectOompaLoompasDetail) {
+        return { loading: true };
+      }
+      return null;
+    });
+
+    const { container } = renderWithRouter(<OompaLoompaDetail />);
+
+    expect(container.querySelector('svg')).toBeInTheDocument();
   });
 });

@@ -1,19 +1,39 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import parse from 'html-react-parser';
 import { useParams } from 'react-router-dom';
-import { selectOompaLoompaById } from 'src/store/oompaLoompasList/selectors';
-import { FlexContainer, Grid, Text } from 'components';
+import DOMPurify from 'dompurify';
+import {
+  selectOompaLoompaById,
+  selectOompaLoompasDetail,
+} from 'src/store/oompaLoompasDetail/selectors';
+import { FlexContainer, Grid, Spinner, Text } from 'components';
 import { LITERALS } from 'src/constants';
 import { Gender } from 'types';
+import { AppDispatch } from 'src/store';
+import { fetchOompaLoompaById } from 'src/store/oompaLoompasDetail/slice';
 import { ExtraInfo } from './types';
 import { categorizeExtraInfo } from './utils';
 import * as Styled from './styles';
+import ShowMoreButton from './ShowMoreButton';
 
 const OompaLoompaDetail = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { oompaLoompaId } = useParams();
   const [showMoreSong, setShowMoreSong] = useState(false);
+  const [showMoreRandomString, setShowMoreRandomString] = useState(false);
+  const [showMoreQuota, setShowMoreQuota] = useState(false);
+  const oompaLoompasDetail = useSelector(selectOompaLoompasDetail);
   const oompaLoompa = useSelector(selectOompaLoompaById(Number(oompaLoompaId)));
   const extraInfo = oompaLoompa && categorizeExtraInfo(oompaLoompa);
+
+  useEffect(() => {
+    dispatch(fetchOompaLoompaById(Number(oompaLoompaId)));
+  }, [dispatch, oompaLoompaId]);
+
+  if (oompaLoompasDetail.loading) {
+    return <Spinner justify="center" align="center" />;
+  }
 
   if (!oompaLoompa) {
     return (
@@ -28,7 +48,7 @@ const OompaLoompaDetail = () => {
       <FlexContainer>
         <Styled.Image src={oompaLoompa.image} />
       </FlexContainer>
-      <Grid gap={24}>
+      <Grid gap={24} alignContent="baseline">
         <Grid gap={4}>
           <Text size={18} weight={500} tag="span">
             {oompaLoompa.first_name} {oompaLoompa.last_name}
@@ -41,7 +61,7 @@ const OompaLoompaDetail = () => {
           </Text>
         </Grid>
         <Styled.Description size={14} weight={300} lineHeight="160%" color="gray" tag="span">
-          {oompaLoompa.favorite.random_string}
+          {parse(DOMPurify.sanitize(oompaLoompa.description || ''))}
         </Styled.Description>
       </Grid>
       <Styled.ExtraInfo gap={16}>
@@ -63,8 +83,46 @@ const OompaLoompaDetail = () => {
               </FlexContainer>
             );
           })}
+        <div>
+          <Text size={14} weight={300} tag="span" color="grey">
+            {LITERALS.OompaLoompaDetail.randomString}
+          </Text>
+          <Styled.LargeText
+            size={14}
+            weight={300}
+            lineHeight="180%"
+            fontStyle="italic"
+            $showMore={showMoreRandomString}
+          >
+            {oompaLoompa.favorite.random_string}
+          </Styled.LargeText>
+          <ShowMoreButton
+            mode="secondary"
+            showMore={showMoreRandomString}
+            setShowMore={setShowMoreRandomString}
+          />
+        </div>
+        <div>
+          <Text size={14} weight={300} tag="span" color="grey">
+            {LITERALS.OompaLoompaDetail.quota}
+          </Text>
+          <Styled.LargeText
+            size={14}
+            weight={300}
+            lineHeight="180%"
+            fontStyle="italic"
+            $showMore={showMoreQuota}
+          >
+            {oompaLoompa.quota}
+          </Styled.LargeText>
+          <ShowMoreButton
+            mode="secondary"
+            showMore={showMoreQuota}
+            setShowMore={setShowMoreQuota}
+          />
+        </div>
       </Styled.ExtraInfo>
-      <Grid gap={16}>
+      <Grid gap={16} alignContent="baseline">
         <Text size={16} weight={500} tag="span">
           {LITERALS.OompaLoompaDetail.favoriteSong}
         </Text>
@@ -79,11 +137,7 @@ const OompaLoompaDetail = () => {
         >
           {oompaLoompa.favorite.song}
         </Styled.Song>
-        <Styled.ShowMoreButton type="button" onClick={() => setShowMoreSong(!showMoreSong)}>
-          <Text size={12} weight={400} tag="span">
-            {showMoreSong ? 'Show Less' : 'Show More'}
-          </Text>
-        </Styled.ShowMoreButton>
+        <ShowMoreButton showMore={showMoreSong} setShowMore={setShowMoreSong} />
       </Grid>
     </Styled.Container>
   );

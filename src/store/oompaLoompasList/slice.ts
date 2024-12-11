@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { OompaLoompasService } from 'services/oompaLompas';
-import { OompaLoompasResponse } from 'types';
+import { OompaLoompasListResponse } from 'types';
 import { RootState } from '../index';
 import { ActionTypes, OompaLoompasListState, Slices } from './types';
 
 export const fetchOompaLoompas = createAsyncThunk<
-  OompaLoompasResponse,
+  OompaLoompasListResponse,
   number,
   { state: RootState }
 >(ActionTypes.FETCH_OOMPA_LOOMPAS_LIST, async (page: number = 1, { getState }) => {
@@ -40,7 +40,7 @@ const oompaLoompaListSlice = createSlice({
       })
       .addCase(
         fetchOompaLoompas.fulfilled,
-        (state, action: PayloadAction<OompaLoompasResponse>) => {
+        (state, action: PayloadAction<OompaLoompasListResponse>) => {
           state.loading = false;
           state.data = {
             current: action.payload.current,

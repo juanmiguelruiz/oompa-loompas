@@ -3,9 +3,10 @@ export enum Gender {
   F = 'Woman',
 }
 
-export type OompaLoompa = {
+export type OompaLoompaDetail = {
   first_name: string;
   last_name: string;
+  description?: string;
   favorite: {
     color: string;
     food: string;
@@ -19,10 +20,15 @@ export type OompaLoompa = {
   age: number;
   country: string;
   height: number;
+  quota: string;
+  random_string: string;
+};
+
+export type OompaLoompa = OompaLoompaDetail & {
   id: number;
 };
 
-export type OompaLoompasResponse = {
+export type OompaLoompasListResponse = {
   results: OompaLoompa[];
   total: number;
   current: number;

@@ -23,12 +23,7 @@ export const Image = styled.img`
 `;
 
 export const Description = styled(Text)`
-  overflow-wrap: break-word;
   width: 100%;
-  max-width: 550px;
-  max-height: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const ExtraInfo = styled(Grid)`
@@ -42,13 +37,13 @@ export const Song = styled(Text)<{ $showMoreSong: boolean }>`
   max-height: ${({ $showMoreSong }) => ($showMoreSong ? 'auto' : '128px')};
 `;
 
-export const ShowMoreButton = styled.button`
-  all: unset;
-  cursor: pointer;
-  background: antiquewhite;
-  width: fit-content;
-  padding: 4px 8px;
-  border-radius: 4px;
+export const LargeText = styled(Text)<{ $showMore: boolean }>`
+  overflow-wrap: break-word;
+  width: 100%;
+  max-width: 550px;
+  max-height: ${({ $showMore }) => ($showMore ? 'auto' : '128px')};
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const ColorBox = styled(FlexContainer)<{ color: string }>`

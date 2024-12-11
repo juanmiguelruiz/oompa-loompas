@@ -29,6 +29,8 @@ export const LITERALS = {
   OompaLoompaDetail: {
     extraInfo: 'Extra Info',
     favoriteSong: 'Favorite Song',
+    randomString: 'Random String',
+    quota: 'Quota',
     notFound: 'OompaLoompa not found',
   },
 };
