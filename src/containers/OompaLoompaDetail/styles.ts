@@ -31,17 +31,24 @@ export const ExtraInfo = styled(Grid)`
   grid-template-columns: 300px;
 `;
 
+export const LargeTextContainer = styled(Grid)`
+  @media (max-width: ${BREAKPOINTS.TABLET}) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+`;
+
 export const Song = styled(Text)<{ $showMoreSong: boolean }>`
   white-space: pre-line;
   overflow: hidden;
-  max-height: ${({ $showMoreSong }) => ($showMoreSong ? 'auto' : '128px')};
+  max-height: ${({ $showMoreSong }) => ($showMoreSong ? 'auto' : '152px')};
 `;
 
 export const LargeText = styled(Text)<{ $showMore: boolean }>`
   overflow-wrap: break-word;
   width: 100%;
   max-width: 550px;
-  max-height: ${({ $showMore }) => ($showMore ? 'auto' : '128px')};
+  max-height: ${({ $showMore }) => ($showMore ? 'auto' : '152px')};
   overflow: hidden;
   text-overflow: ellipsis;
 `;

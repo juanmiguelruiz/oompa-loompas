@@ -83,27 +83,26 @@ const OompaLoompaDetail = () => {
               </FlexContainer>
             );
           })}
-        <div>
-          <Text size={14} weight={300} tag="span" color="grey">
-            {LITERALS.OompaLoompaDetail.randomString}
+      </Styled.ExtraInfo>
+      <Styled.LargeTextContainer gap={16} columns="repeat(3, 1fr)">
+        <Grid gap={4} alignContent="baseline">
+          <Text size={16} weight={500} tag="span">
+            {LITERALS.OompaLoompaDetail.favoriteSong}
           </Text>
-          <Styled.LargeText
+          <Styled.Song
             size={14}
             weight={300}
             lineHeight="180%"
+            color="gray"
             fontStyle="italic"
-            $showMore={showMoreRandomString}
+            $showMoreSong={showMoreSong}
           >
-            {oompaLoompa.favorite.random_string}
-          </Styled.LargeText>
-          <ShowMoreButton
-            mode="secondary"
-            showMore={showMoreRandomString}
-            setShowMore={setShowMoreRandomString}
-          />
-        </div>
-        <div>
-          <Text size={14} weight={300} tag="span" color="grey">
+            {oompaLoompa.favorite.song}
+          </Styled.Song>
+          <ShowMoreButton showMore={showMoreSong} setShowMore={setShowMoreSong} />
+        </Grid>
+        <Grid gap={4} alignContent="baseline">
+          <Text size={16} weight={500} tag="span">
             {LITERALS.OompaLoompaDetail.quota}
           </Text>
           <Styled.LargeText
@@ -111,34 +110,30 @@ const OompaLoompaDetail = () => {
             weight={300}
             lineHeight="180%"
             fontStyle="italic"
+            color="gray"
             $showMore={showMoreQuota}
           >
             {oompaLoompa.quota}
           </Styled.LargeText>
-          <ShowMoreButton
-            mode="secondary"
-            showMore={showMoreQuota}
-            setShowMore={setShowMoreQuota}
-          />
-        </div>
-      </Styled.ExtraInfo>
-      <Grid gap={16} alignContent="baseline">
-        <Text size={16} weight={500} tag="span">
-          {LITERALS.OompaLoompaDetail.favoriteSong}
-        </Text>
-        <Styled.Song
-          size={14}
-          weight={300}
-          lineHeight="180%"
-          color="gray"
-          tag="span"
-          fontStyle="italic"
-          $showMoreSong={showMoreSong}
-        >
-          {oompaLoompa.favorite.song}
-        </Styled.Song>
-        <ShowMoreButton showMore={showMoreSong} setShowMore={setShowMoreSong} />
-      </Grid>
+          <ShowMoreButton showMore={showMoreQuota} setShowMore={setShowMoreQuota} />
+        </Grid>
+        <Grid gap={4} alignContent="baseline">
+          <Text size={16} weight={500} tag="span">
+            {LITERALS.OompaLoompaDetail.randomString}
+          </Text>
+          <Styled.LargeText
+            size={14}
+            weight={300}
+            lineHeight="180%"
+            fontStyle="italic"
+            color="gray"
+            $showMore={showMoreRandomString}
+          >
+            {oompaLoompa.favorite.random_string}
+          </Styled.LargeText>
+          <ShowMoreButton showMore={showMoreRandomString} setShowMore={setShowMoreRandomString} />
+        </Grid>
+      </Styled.LargeTextContainer>
     </Styled.Container>
   );
 };

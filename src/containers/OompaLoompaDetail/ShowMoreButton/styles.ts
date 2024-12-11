@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const ShowMoreButton = styled.button<{ $mode: 'primary' | 'secondary' }>`
+export const ShowMoreButton = styled.button`
   all: unset;
   cursor: pointer;
-  background: ${({ $mode }) => ($mode === 'primary' ? 'antiquewhite' : 'lightgray')};
+  background: antiquewhite;
   width: fit-content;
   padding: 4px 8px;
   border-radius: 4px;
